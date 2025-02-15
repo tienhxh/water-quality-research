@@ -16,7 +16,8 @@ test_dataloader = get_lstm_dataloader(testing_data, seq_length, shuffle=False)
 first_x, first_y = train_dataloader.dataset[0]
 input_dim = first_x.shape[-1]
 
-model = BasicLSTM(input_dim=input_dim, hidden_dim = hidden_dim, num_layers = num_layers, output_dim = output_dim, seq_length = seq_length)
+model = BasicLSTM(input_dim=input_dim, hidden_dim=hidden_dim, num_layers=num_layers, output_dim=output_dim,
+                  seq_length=seq_length)
 
 num_epochs = 200
 lr = 0.01
