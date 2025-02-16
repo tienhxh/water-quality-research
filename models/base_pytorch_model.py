@@ -137,6 +137,7 @@ class BaseModel(nn.Module):
                     scheduler.step()
 
             print(f"Current learning rate: {optimizer.param_groups[0]['lr']:.6f}")
+        return best_val_loss
 
     @abstractmethod
     def calculate_detailed_report(self, predictions: List[torch.Tensor], ground_truth: List[torch.Tensor],

@@ -133,6 +133,7 @@ dmypy.json
 .pyre/
 /test_data
 /storages
+/data/hoa_binh
 
 credentials/gpt3_credential.py
 

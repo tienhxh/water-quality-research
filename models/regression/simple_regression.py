@@ -25,6 +25,7 @@ class BasicRegression(BaseModel):
                                   **kwargs) -> Dict[str, Any]:
         return {}
 
+
 class CNN(nn.Module):
     def __init__(self, input_dim: int):
         """
@@ -42,21 +43,21 @@ class CNN(nn.Module):
         """
             Computing with CNN using PyTorch.    
         """
-        data = data.unsqueeze(2)   
+        data = data.unsqueeze(2)
         # Add a dimension to data so as to be suitable for Conv1d (batch_size, input_dim) -> (batch_size, input_dim, 1).                                   
-        data = data.permute(2,1,0) # Change (batch_size, input_dim, 1) -> (1, input_dim, batch_size) 
+        data = data.permute(2, 1, 0)  # Change (batch_size, input_dim, 1) -> (1, input_dim, batch_size)
         data = self.cnn(data)
-        data = data.view(data.size(0), -1) # flatten to 2D.
+        data = data.view(data.size(0), -1)  # flatten to 2D.
         return data
-    
+
+
 class BasicCNN(BaseModel):
     def __init__(self, input_dim: int):
         super().__init__(input_dim)
 
     def _build_network(self) -> nn.Module:
         return CNN(self.input_dim)
-    
+
     def calculate_detailed_report(self, predictions: List[torch.Tensor], ground_truth: List[torch.Tensor],
                                   **kwargs) -> Dict[str, Any]:
         return {}
-    
