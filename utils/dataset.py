@@ -1,6 +1,6 @@
-from typing import Dict, List, Optional
-
 import math
+from typing import Dict, List
+
 import numpy as np
 import torch
 from torch.utils.data import Dataset, DataLoader
@@ -32,11 +32,11 @@ class ChemicalDataset(Dataset):
              if not math.isnan(sample.chem_substance_concentration[substance]) else
              self.nan_default_replace_value[substance] for substance in CHEMICAL_SUBSTANCE_COLUMNS],
             dtype=torch.float32)
-        target = torch.tensor(sample.target_value, dtype=torch.float32)
+        target = torch.tensor([sample.target_value], dtype=torch.float32)
         return features, target
 
 
-def get_simple_dataloader(data_by_location: Dict[str, List[DataSample]], batch_size: int = 4,
+def get_simple_dataloader(data_by_location: Dict[str, List[DataSample]], batch_size: int = 512,
                           shuffle: bool = False) -> DataLoader:
     """
     Get simple dataloader by combining data from all locations.

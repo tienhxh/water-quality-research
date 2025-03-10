@@ -1,9 +1,12 @@
-from typing import Dict, List
 import math
+from typing import Dict, List
+
 import torch
 from torch.utils.data import Dataset, DataLoader
+
 from utils.data_utils import DataSample, get_avg_value
 from utils.consts import CHEMICAL_SUBSTANCE_COLUMNS
+
 
 class ChemicalSequenceDataset(Dataset):
     """
@@ -63,6 +66,7 @@ class ChemicalSequenceDataset(Dataset):
         )  # Shape: (seq_length,).
         
         return features, targets
+
 
 def get_lstm_dataloader(data_by_location: Dict[str, List[DataSample]], 
                         seq_length: int, batch_size: int = 4, 

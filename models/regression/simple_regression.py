@@ -11,7 +11,7 @@ class LinearRegression(nn.Module):
         self.linear = nn.Linear(input_dim, 1)
 
     def forward(self, data: torch.Tensor) -> torch.Tensor:
-        return self.linear(data).squeeze()
+        return self.linear(data)
 
 
 class BasicRegression(BaseModel):
@@ -40,15 +40,9 @@ class CNN(nn.Module):
         self.cnn = nn.Conv1d(in_channels=input_dim, out_channels=1, kernel_size=3, padding=1)
 
     def forward(self, data: torch.Tensor) -> torch.Tensor:
-        """
-            Computing with CNN using PyTorch.    
-        """
-        data = data.unsqueeze(2)
-        # Add a dimension to data so as to be suitable for Conv1d (batch_size, input_dim) -> (batch_size, input_dim, 1).                                   
-        data = data.permute(2, 1, 0)  # Change (batch_size, input_dim, 1) -> (1, input_dim, batch_size)
-        data = self.cnn(data)
-        data = data.view(data.size(0), -1)  # flatten to 2D.
-        return data
+        data = data.unsqueeze(2) # Add a dimension to data so as to be suitable for Conv1d (batch_size, input_dim) -> (batch_size, input_dim, 1).                                   
+        data = self.cnn(data) # (batch_size, input_dim, 1) -> (batch_size, 1, 1)
+        return data.squeeze(2) # (batch_size, 1, 1) -> (batch_size, 1)
 
 
 class BasicCNN(BaseModel):
